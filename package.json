@@ -1,0 +1,34 @@
+{
+  "name": "mdlive",
+  "version": "0.0.0",
+  "description": "markdown live preview",
+  "homepage": "https://github.com/ngyuki/mdlive",
+  "author": "ngyuki <ngyuki.jp@ngyuki.jp@gmail.com> (https://github.com/ngyuki)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngyuki/mdlive.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ngyuki/mdlive/issues"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "bin": {
+    "mdlive": "./bin/mdlive.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chokidar": "^1.4.3",
+    "connect": "^3.4.1",
+    "github-markdown-css": "^2.2.1",
+    "highlight.js": "^9.3.0",
+    "jquery": "^2.2.3",
+    "marked": "^0.3.5",
+    "open": "0.0.5",
+    "serve-static": "^1.10.2",
+    "socket.io": "^1.4.5",
+    "socket.io-client": "^1.4.5"
+  }
+}

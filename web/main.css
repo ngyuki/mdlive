@@ -1,0 +1,21 @@
+.markdown-body {
+    margin: 1em auto 25%;
+    padding: 1em;
+    font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
+}
+
+.markdown-body h1 {
+    text-shadow: 2px 2px 4px #888;
+    border-bottom: 1px solid #888;
+    padding-bottom: 4px;
+}
+
+.markdown-body h2 {
+    text-shadow: 1px 1px 2px #888;
+    border-bottom: 1px dotted #888;
+    padding-bottom: 4px;
+}
+
+.markdown-body h3 {
+    text-shadow: 1px 1px 1px #888;
+}
