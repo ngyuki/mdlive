@@ -1,0 +1,7 @@
+src/
+test/
+sample/
+.envrc
+.babelrc
+.npmignore
+*.tgz
