@@ -2,16 +2,23 @@
   "name": "mdlive",
   "version": "0.0.1",
   "description": "markdown live preview",
+  "keywords": [
+    "markdown"
+  ],
   "homepage": "https://github.com/ngyuki/mdlive",
-  "author": "ngyuki <ngyuki.jp@ngyuki.jp@gmail.com> (https://github.com/ngyuki)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ngyuki/mdlive.git"
-  },
   "bugs": {
     "url": "https://github.com/ngyuki/mdlive/issues"
   },
   "license": "MIT",
+  "author": {
+    "name": "Toshiyuki Goto",
+    "email": "ngyuki.jp@gmail.com",
+    "url": "https://github.com/ngyuki/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ngyuki/mdlive.git"
+  },
   "main": "index.js",
   "bin": {
     "mdlive": "./bin/mdlive.js"
