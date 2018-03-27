@@ -1,7 +1,7 @@
 import sys from 'util';
 import fs from 'fs';
 import path from 'path';
-import open from 'open';
+import opn from 'opn';
 
 import markdown from './markdown';
 import server from './server';
@@ -35,6 +35,6 @@ function readAndPushMarkdown()
 
 const io = server(port, readAndPushMarkdown);
 
-open('http://localhost:' + port);
+opn('http://localhost:' + port);
 
 watch(filename, readAndPushMarkdown);
