@@ -11,7 +11,6 @@ export default function(port, callback){
     const server = http.createServer(app);
     const io = socketIo(server);
 
-    app.use('/!/node_modules', serveStatic(path.resolve(__dirname, '..', 'node_modules')));
     app.use('/!/', serveStatic(path.resolve(__dirname, '..', 'web')));
     app.use('', serveStatic(path.resolve(__dirname, '..', 'web')));
     app.use(serveStatic(process.cwd()));

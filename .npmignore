@@ -5,3 +5,4 @@ sample/
 .babelrc
 .npmignore
 *.tgz
+asset.js
