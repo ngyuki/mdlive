@@ -15,16 +15,8 @@ export default function(port, callback){
     app.use('', serveStatic(path.resolve(__dirname, '..', 'web')));
     app.use(serveStatic(process.cwd()));
 
-    let timer = null;
-
     io.sockets.on('connection', function(socket){
-
         console.log(sys.format("connected (%s clients)", socket.client.conn.server.clientsCount));
-
-        if (timer) {
-            clearTimeout(timer);
-            timer = null;
-        }
 
         socket.on('disconnect', function(){
             console.log(sys.format("disconnect (%s clients)", socket.client.conn.server.clientsCount));
