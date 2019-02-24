@@ -5,14 +5,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>markdown-live-preview</title>
-    <link rel="stylesheet" href="/!/lib/github-markdown.css">
-    <link rel="stylesheet" href="/!/lib/github-gist.css">
-    <link rel="stylesheet" href="/!/main.css">
+    <link rel="stylesheet" href="data:text/css;base64,<%= css %>">
 </head>
 <body>
     <div id="markdown-body" class="markdown-body"></div>
-    <script src="/!/lib/socket.io.slim.js"></script>
-    <script src="/!/lib/jquery.min.js"></script>
-    <script src="/!/main.js"></script>
+    <script src="data:text/javascript;base64,<%= js %>"></script>
 </body>
 </html>

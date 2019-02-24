@@ -1,9 +1,10 @@
 import sys from 'util';
-import path from 'path';
 import http from 'http';
 import connect from 'connect';
 import serveStatic from 'serve-static';
 import socketIo from 'socket.io';
+
+import template from './template';
 
 export default function(port, callback){
 
@@ -11,9 +12,11 @@ export default function(port, callback){
     const server = http.createServer(app);
     const io = socketIo(server);
 
-    app.use('/!/', serveStatic(path.resolve(__dirname, '..', 'web')));
-    app.use('', serveStatic(path.resolve(__dirname, '..', 'web')));
     app.use(serveStatic(process.cwd()));
+
+    app.use('/', (req, res, next) => {
+        res.end(template());
+    });
 
     io.sockets.on('connection', function(socket){
         console.log(sys.format("connected (%s clients)", socket.client.conn.server.clientsCount));
