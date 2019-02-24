@@ -10,7 +10,7 @@ body {
 }
 
 .markdown-body {
-    margin: 0 auto 25%;
+    margin: 0 auto;
     padding: 1em;
     font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }
