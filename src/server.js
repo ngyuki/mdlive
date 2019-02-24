@@ -16,17 +16,16 @@ export default function(port, filename) {
 
     app.use(serveStatic(process.cwd()));
 
-    app.use('/download', (req, res, next) => {
-        readMarkdownFile(filename, true).then((html) => {
-            const content = downloadTemplate(filename, html);
+    app.use('/download', async (req, res, next) => {
+        const html = await readMarkdownFile(filename, true);
+        const content = downloadTemplate(filename, html);
 
-            const { name: basename } = path.parse(filename);
-            const attachment = path.format({ name: encodeURIComponent(basename), ext: '.html' });
+        const { name: basename } = path.parse(filename);
+        const attachment = path.format({ name: encodeURIComponent(basename), ext: '.html' });
 
-            res.setHeader('Content-disposition', `attachment; filename*=UTF-8''${attachment}`);
-            res.setHeader('Content-type', 'text/html');
-            res.end(content);
-        });
+        res.setHeader('Content-disposition', `attachment; filename*=UTF-8''${attachment}`);
+        res.setHeader('Content-type', 'text/html');
+        res.end(content);
     });
 
     app.use('/', (req, res, next) => {
@@ -51,12 +50,11 @@ export default function(port, filename) {
         app.emit('markdown');
     });
 
-    app.on('markdown', () => {
-        readMarkdownFile(filename).then((html) => {
-            io.sockets.emit('markdown', {
-                title: filename,
-                body: html,
-            });
+    app.on('markdown', async () => {
+        const html = await readMarkdownFile(filename);
+        io.sockets.emit('markdown', {
+            title: filename,
+            body: html,
         });
     });
 
