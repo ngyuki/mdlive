@@ -42,7 +42,6 @@ export function indexTemplate() {
         const data = assets();
         const content = template(data);
         _indexTemplate = () => content;
-        console.log("_indexTemplate");
     }
     return _indexTemplate();
 }
@@ -53,7 +52,6 @@ export function downloadTemplate(title, body) {
         const template = resolve('web/download.html')
         const data = assets();
         _downloadTemplate = (title, body) => template(Object.assign({title, body}, data));
-        console.log("_downloadTemplate");
     }
     return _downloadTemplate(title, body);
 }
