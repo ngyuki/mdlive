@@ -1,9 +1,7 @@
 import sys from 'util';
-import fs from 'fs';
 import path from 'path';
 import opn from 'opn';
 
-import markdown from './markdown';
 import server from './server';
 import watch from './watch';
 
@@ -18,23 +16,10 @@ const port = 25485;
 
 process.chdir(path.dirname(filename));
 
-function readAndPushMarkdown()
-{
-    console.log('markdown', filename);
-    fs.readFile(filename, function(err, data){
-        if (err) {
-            throw err;
-        }
-        const html = markdown(data.toString());
-        io.sockets.emit('markdown', {
-            title: basename,
-            body: html,
-        });
-    });
-}
-
-const io = server(port, readAndPushMarkdown);
+const app = server(port, basename);
 
 opn('http://localhost:' + port);
 
-watch(filename, readAndPushMarkdown);
+watch(filename, () => {
+    app.emit('markdown');
+});

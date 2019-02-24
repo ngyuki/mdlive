@@ -4,14 +4,12 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>markdown-live-preview</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="data:text/css;base64,<%= css %>">
 </head>
 <body>
-    <div id="control">
-        <button id="download">download</button>
+    <div id="markdown-body" class="markdown-body">
+        <%- body %>
     </div>
-    <div id="markdown-body" class="markdown-body"></div>
-    <script src="data:text/javascript;base64,<%= js %>"></script>
 </body>
 </html>

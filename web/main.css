@@ -1,5 +1,16 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#control {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 8px 0 0;
+}
+
 .markdown-body {
-    margin: 1em auto 25%;
+    margin: 0 auto 25%;
     padding: 1em;
     font-family: "Helvetica Neue",Helvetica,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif;
 }

@@ -1,10 +1,23 @@
+import fs from 'fs';
 import marked from 'marked';
 import hljs from 'highlight.js';
 
-export default function(input){
+function parseString(input){
     return marked(input, {
         highlight: function (code, lang) {
             return hljs.highlightAuto(code, [lang]).value;
         }
     });
 };
+
+export function readMarkdownFile(filename){
+    return new Promise((resolve) => {
+        fs.readFile(filename, function(err, data){
+            if (err) {
+                throw err;
+            }
+            const html = parseString(data.toString());
+            resolve(html);
+        });
+    });
+}

@@ -2,11 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
 
-export default function template() {
+function resolve(name) {
+    return fs.readFileSync(path.resolve(__dirname, '..', name)).toString();
+}
 
-    const content = fs.readFileSync(path.resolve(__dirname, '../web/index.html'));
+function assets() {
 
-    const assets = {
+    const files = {
         css: [
             'node_modules/github-markdown-css/github-markdown.css',
             'node_modules/highlight.js/styles/github-gist.css',
@@ -18,16 +20,28 @@ export default function template() {
         ],
     };
 
-    const data = {};
-    for (let key of Object.keys(assets)) {
+    const assets = {};
+
+    for (let key of Object.keys(files)) {
         const bufs = [];
-        for (let fn of assets[key]) {
+        for (let fn of files[key]) {
             bufs.push(fs.readFileSync(path.resolve(__dirname, '..', fn)));
             bufs.push(Buffer.from("\n"));
         }
-        data[key] = Buffer.concat(bufs).toString('base64');
+        assets[key] = Buffer.concat(bufs).toString('base64');
     }
 
-    return ejs.render(content.toString(), data);
-};
+    return assets;
+}
 
+export function indexTemplate() {
+    const content = resolve('web/index.html');
+    const data = assets();
+    return ejs.render(content, data);
+}
+
+export function downloadTemplate(title, body) {
+    const content = resolve('web/download.html');
+    const data = Object.assign({title, body}, assets());
+    return ejs.render(content, data);
+}
