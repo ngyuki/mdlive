@@ -3,8 +3,9 @@ import path from 'path';
 
 function parse(args) {
 
-    let output = false;
     let array = [];
+    let output = false;
+    let port = 25485;
 
     for (let i=0; i<args.length; i++) {
         let arg = args[i];
@@ -12,6 +13,13 @@ function parse(args) {
         switch (arg) {
             case '-o':
                 output = true;
+                break;
+
+            case '-p':
+                port = parseInt(args[++i]);
+                if (!port) {
+                    return false;
+                }
                 break;
 
             default:
@@ -34,13 +42,14 @@ function parse(args) {
     return {
         filename: array[0],
         output: output,
+        port: port,
     };
 }
 
 export default function(argv) {
     const options = parse(argv.slice(2));
     if (options == false) {
-        console.log(util.format('Usage: %s [-o] <markdown file>', path.basename(argv[1])));
+        console.log(util.format('Usage: %s [-o] [-p <port>] <markdown file>', path.basename(argv[1])));
         process.exit(1);
     }
     return options;
