@@ -8,7 +8,7 @@ import socketIo from 'socket.io';
 import { indexTemplate, downloadTemplate } from './template';
 import { readMarkdownFile } from './markdown';
 
-export default function(port, filename){
+export default function(port, filename) {
 
     const app = connect();
     const server = http.createServer(app);
@@ -33,14 +33,14 @@ export default function(port, filename){
         res.end(indexTemplate());
     });
 
-    io.sockets.on('connection', function(socket){
+    io.sockets.on('connection', (socket) => {
         console.log(sys.format("connected (%s clients)", socket.client.conn.server.clientsCount));
 
-        socket.on('disconnect', function(){
+        socket.on('disconnect', function() {
             console.log(sys.format("disconnect (%s clients)", socket.client.conn.server.clientsCount));
 
             if (socket.client.conn.server.clientsCount === 0) {
-                setTimeout(function(){
+                setTimeout(() => {
                     if (socket.client.conn.server.clientsCount === 0) {
                         process.exit();
                     }
@@ -60,7 +60,7 @@ export default function(port, filename){
         });
     });
 
-    server.listen(port, function(){
+    server.listen(port, () => {
         console.log('listening ...', port);
     });
 
