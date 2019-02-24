@@ -17,7 +17,7 @@ export default function(port, filename) {
     app.use(serveStatic(process.cwd()));
 
     app.use('/download', (req, res, next) => {
-        readMarkdownFile(filename).then((html) => {
+        readMarkdownFile(filename, true).then((html) => {
             const content = downloadTemplate(filename, html);
 
             const { name: basename } = path.parse(filename);
