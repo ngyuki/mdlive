@@ -3,7 +3,8 @@ const path = require('path');
 const ejs = require('ejs');
 
 function resolve(name) {
-    return fs.readFileSync(path.resolve(__dirname, '..', name)).toString();
+    const content = fs.readFileSync(path.resolve(__dirname, '..', name)).toString();
+    return ejs.compile(content)
 }
 
 function assets() {
@@ -20,7 +21,7 @@ function assets() {
         ],
     };
 
-    const assets = {};
+    const data = {};
 
     for (let key of Object.keys(files)) {
         const bufs = [];
@@ -28,20 +29,31 @@ function assets() {
             bufs.push(fs.readFileSync(path.resolve(__dirname, '..', fn)));
             bufs.push(Buffer.from("\n"));
         }
-        assets[key] = Buffer.concat(bufs).toString('base64');
+        data[key] = Buffer.concat(bufs).toString('base64');
     }
 
-    return assets;
+    return data;
 }
 
+let _indexTemplate = null;
 export function indexTemplate() {
-    const content = resolve('web/index.html');
-    const data = assets();
-    return ejs.render(content, data);
+    if (_indexTemplate == null) {
+        const template = resolve('web/index.html');
+        const data = assets();
+        const content = template(data);
+        _indexTemplate = () => content;
+        console.log("_indexTemplate");
+    }
+    return _indexTemplate();
 }
 
+let _downloadTemplate = null;
 export function downloadTemplate(title, body) {
-    const content = resolve('web/download.html');
-    const data = Object.assign({title, body}, assets());
-    return ejs.render(content, data);
+    if (_downloadTemplate == null) {
+        const template = resolve('web/download.html')
+        const data = assets();
+        _downloadTemplate = (title, body) => template(Object.assign({title, body}, data));
+        console.log("_downloadTemplate");
+    }
+    return _downloadTemplate(title, body);
 }
