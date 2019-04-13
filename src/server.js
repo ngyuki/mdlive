@@ -59,7 +59,7 @@ export default function(port, filename) {
     });
 
     server.listen(port, () => {
-        console.log('listening ...', port);
+        console.log(`listening ... http://localhost:${port}`);
     });
 
     return app;
