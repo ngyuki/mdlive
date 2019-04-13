@@ -1,5 +1,6 @@
 import path from 'path';
 import opn from 'opn';
+import { spawn } from 'child_process';
 
 import args from './args';
 import server from './server';
@@ -19,7 +20,16 @@ if (output) {
     })()
 } else {
     const app = server(port, basename);
-    opn('http://localhost:' + port);
+    const url = `http://localhost:${port}`;
+    if (process.env['MDLIVE_BROWSER']) {
+        spawn('sh', ['-c', `${process.env['MDLIVE_BROWSER']} "$1"`, '--', url], {
+            stdio: 'ignore',
+            detached: true,
+            shell: false,
+        });
+    } else {
+        opn(url);
+    }
     watch(basename, () => {
         app.emit('markdown');
     });
