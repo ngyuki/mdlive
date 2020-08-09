@@ -13,14 +13,12 @@ export default function(filename, callback) {
 
     watcher.on('all', (event, filename) => {
         console.log(event, filename);
-
-        fs.readFile(realpath, (err, data) => {
-            if (err) {
-                throw err;
-            }
+        try {
             if (realpath === fs.realpathSync(filename)) {
                 callback(filename);
             }
-        });
+        } catch (err) {
+            // pass
+        }
     });
 }
