@@ -1,5 +1,5 @@
 import path from 'path';
-import opn from 'opn';
+import open from 'open';
 import { spawn } from 'child_process';
 
 import args from './args';
@@ -28,7 +28,7 @@ if (output) {
             shell: false,
         });
     } else {
-        opn(url);
+        open(url);
     }
     watch(basename, () => {
         app.emit('markdown');
