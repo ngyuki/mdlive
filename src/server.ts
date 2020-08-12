@@ -1,22 +1,22 @@
 import sys from 'util';
 import path from 'path';
-import http from 'http';
-import connect from 'connect';
+import http, { IncomingMessage, ServerResponse } from 'http';
+import connect, { NextFunction } from 'connect';
 import serveStatic from 'serve-static';
 import socketIo from 'socket.io';
 
 import { indexTemplate, downloadTemplate } from './template';
 import { readMarkdownFile } from './markdown';
 
-export default function(port, filename) {
+export default function(port: number, filename: string) {
 
     const app = connect();
     const server = http.createServer(app);
     const io = socketIo(server);
 
-    app.use(serveStatic(process.cwd()));
+    app.use(serveStatic(process.cwd()) as any);
 
-    app.use('/download', async (req, res, next) => {
+    app.use('/download', async (_req: IncomingMessage, res: ServerResponse, _next: NextFunction) => {
         const html = await readMarkdownFile(filename, true);
         const content = downloadTemplate(filename, html);
 
@@ -28,7 +28,7 @@ export default function(port, filename) {
         res.end(content);
     });
 
-    app.use('/', (req, res, next) => {
+    app.use('/', (_req: IncomingMessage, res: ServerResponse, _next: NextFunction) => {
         res.end(indexTemplate());
     });
 

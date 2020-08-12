@@ -4,7 +4,7 @@ import hljs from 'highlight.js';
 
 class Renderer extends marked.Renderer {
 
-    image(href, title, text) {
+    image(href: string, title: string, text: string): string {
         const filename = decodeURIComponent(href);
         if (!/^[a-z]+:\/\//.test(filename)) {
             try {
@@ -18,16 +18,16 @@ class Renderer extends marked.Renderer {
     }
 }
 
-function parseString(input, embedded) {
+function parseString(input: string, embedded: boolean) {
     return marked(input, {
-        renderer: embedded ? new Renderer() : null,
+        renderer: embedded ? new Renderer() : undefined,
         highlight: (code, lang) => {
             return hljs.highlightAuto(code, [lang]).value;
         },
     });
 };
 
-export function readMarkdownFile(filename, embedded) {
+export function readMarkdownFile(filename: string, embedded: boolean = false): Promise<string> {
     return new Promise((resolve) => {
         fs.readFile(filename, (err, data) => {
             if (err) {

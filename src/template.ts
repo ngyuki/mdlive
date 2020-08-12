@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const ejs = require('ejs');
+import fs from 'fs'
+import path from 'path'
+import ejs from 'ejs'
 
-function resolve(name) {
+function resolve(name: string) {
     const content = fs.readFileSync(path.resolve(__dirname, '..', name)).toString();
     return ejs.compile(content)
 }
@@ -21,9 +21,12 @@ function assets() {
         ],
     };
 
-    const data = {};
+    const data = {
+        css: '',
+        js: '',
+    };
 
-    for (let key of Object.keys(files)) {
+    for (const key of Object.keys(files) as Array<keyof typeof files>) {
         const bufs = [];
         for (let fn of files[key]) {
             bufs.push(fs.readFileSync(path.resolve(__dirname, '..', fn)));
@@ -35,7 +38,7 @@ function assets() {
     return data;
 }
 
-let _indexTemplate = null;
+let _indexTemplate: (() => string) | null = null;
 export function indexTemplate() {
     if (_indexTemplate == null) {
         const template = resolve('web/index.html');
@@ -46,8 +49,8 @@ export function indexTemplate() {
     return _indexTemplate();
 }
 
-let _downloadTemplate = null;
-export function downloadTemplate(title, body) {
+let _downloadTemplate: ((title: string, body: string) => string) | null = null;
+export function downloadTemplate(title: string, body: string) {
     if (_downloadTemplate == null) {
         const template = resolve('web/download.html')
         const data = assets();

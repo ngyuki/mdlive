@@ -1,9 +1,9 @@
 import util from 'util';
 import path from 'path';
 
-function parse(args) {
+function parse(args: string[]) {
 
-    let array = [];
+    let array: string[] = [];
     let output = false;
     let port = 25485;
 
@@ -46,7 +46,7 @@ function parse(args) {
     };
 }
 
-export default function(argv) {
+export default function(argv: string[]) {
     const options = parse(argv.slice(2));
     if (options == false) {
         console.log(util.format('Usage: %s [-o] [-p <port>] <markdown file>', path.basename(argv[1])));

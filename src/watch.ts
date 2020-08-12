@@ -1,7 +1,7 @@
 import fs from 'fs';
 import chokidar from 'chokidar';
 
-export default function(filename, callback) {
+export default function(filename: string, callback: (filename: string) => void) {
 
     const watcher = chokidar.watch('.', {
         persistent: true,

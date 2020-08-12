@@ -8,7 +8,7 @@ import watch from './watch';
 import { downloadTemplate } from './template';
 import { readMarkdownFile } from './markdown';
 
-const {filename, output, port} = args(process.argv);
+const { filename, output, port } = args(process.argv);
 const basename = path.basename(filename);
 process.chdir(path.dirname(filename));
 
