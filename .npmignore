@@ -1,7 +1,6 @@
-src/
-test/
-sample/
-.envrc
-.babelrc
-.npmignore
-*.tgz
+/*
+!/bin
+!/lib
+!/package.json
+!/README.md
+!/web
